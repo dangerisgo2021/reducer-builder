@@ -1,0 +1,16 @@
+{
+  "name": "redux-reducer-builder",
+  "version": "1.0.0",
+  "description": "Fluent Redux Reducer Builder. Build to be an alternative for the giant switch case reducer files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "redux",
+    "reducer",
+    "builder"
+  ],
+  "author": "Clark Luskin",
+  "license": "MIT"
+}
