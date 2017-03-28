@@ -11,6 +11,10 @@
     "reducer",
     "builder"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dangerisgo2021/redux-reducer-builder.git"
+  },
   "author": "Clark Luskin",
   "license": "MIT"
 }
