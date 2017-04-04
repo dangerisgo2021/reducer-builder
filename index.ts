@@ -6,6 +6,7 @@ export default class ReduxReducerBuilder<Action extends iAction, ActionType, iSt
   private actionTypeToReducerMap: Map<ActionType, (state: iState, action: Action) => iState>;
   private initialState? : iState;
   constructor() {
+    this.initalState = {};
     this.actionTypeToReducerMap = new Map<ActionType, (state: iState, action: Action) => iState>();
   }
 
