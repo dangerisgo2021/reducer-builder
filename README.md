@@ -8,7 +8,7 @@ example
 const loginReducer = (state, action) => { return {...state, action.user} };
 const logoutReducer = (state,action) => { return {...state, user: {} };
 ```
-//userReducer
+//userReducerBuilder
 ```
 let userReducerBuilder = new ReduxReducerBuilder<ReduxAction, ReduxActionType, UserState>();
   .setInitialState({ user:{} })
