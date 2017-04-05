@@ -4,19 +4,18 @@
 example 
 
 //userReducers
-
-loginReducer = (state, action) => { return {...state, action.user} };
-logoutReducer = (state,action) => { return {...state, user: {} };
-
+```
+const loginReducer = (state, action) => { return {...state, action.user} };
+const logoutReducer = (state,action) => { return {...state, user: {} };
+```
 //userReducer
-
-urb = new ReduxReducerBuilder<ReduxAction, ReduxActionType, UserState>();
-
-urb
-  .setInitialState({})
+```
+let userReducerBuilder = new ReduxReducerBuilder<ReduxAction, ReduxActionType, UserState>();
+  .setInitialState({ user:{} })
   .addReducer('USER_LOGIN', loginReducer)
   .addReducer('USER_LOGOUT', logoutReducer);
-  
+```
 //Root Reducer
-
-store = createStore(combineReducers({ user: urb.build() });
+```
+const rootReducer = combineReducers({ user: userReducerBuilder.build() });
+```
