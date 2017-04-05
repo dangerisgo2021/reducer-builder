@@ -4,6 +4,7 @@
 example 
 
 //userReducers
+
 loginReducer = (state, action) => { return {...state, action.user} };
 logoutReducer = (state,action) => { return {...state, user: {} };
 
