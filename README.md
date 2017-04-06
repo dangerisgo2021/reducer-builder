@@ -11,7 +11,7 @@ const logoutReducer = (state,action) => { return {...state, user: {} };
 //userReducerBuilder
 ```
 let userReducerBuilder = new ReduxReducerBuilder<ReduxAction, ReduxActionType, UserState>();
-  .setInitialState({ user:{} })
+  .setInitialState({})
   .addReducer('USER_LOGIN', loginReducer)
   .addReducer('USER_LOGOUT', logoutReducer);
 ```
