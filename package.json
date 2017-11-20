@@ -1,10 +1,11 @@
 {
-  "name": "redux-reducer-builder",
-  "version": "1.0.0",
+  "name": "reducer-builder",
+  "version": "1.0.3",
   "description": "Fluent Redux Reducer Builder. Build to be an alternative for the giant switch case reducer files.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src --out-dir lib"
   },
   "keywords": [
     "redux",
@@ -16,5 +17,13 @@
     "url": "git://github.com/dangerisgo2021/redux-reducer-builder.git"
   },
   "author": "Clark Luskin",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1"
+  }
 }

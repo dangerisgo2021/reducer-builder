@@ -1,6 +1,5 @@
-import { isEmpty, keys } from 'lodash'
-
-export class ReduxReducerBuilder {
+import { isEmpty } from 'lodash'
+export default class ReduxReducerBuilder {
 
 	constructor() {
 		this.initialState = {};
@@ -15,12 +14,12 @@ export class ReduxReducerBuilder {
 
 	addReducer(actionType, reducer) {
 		this.actionTypeToReducer[actionType] = reducer;
-		return this;
-	};
+		return this
+	}
 
 	combine(name, child) {
 		this.nameToChild[name] = child;
-		return this;
+		return this
 	}
 
 	build() {
@@ -32,7 +31,7 @@ export class ReduxReducerBuilder {
 
 			return (state = self.initialState, action) => {
 				const reducer = self.actionTypeToReducer[action.type];
-				return reducer ? reducer(state, action) : state
+				return reducer ? reducer(state, action) : state;
 			}
 
 		} else {
@@ -47,13 +46,13 @@ export class ReduxReducerBuilder {
 					return nextState;
 				};
 
-				const children = _.keys(self.nameToChild)
+				const children = Object.keys(self.nameToChild)
 					.reduce(applyChildren, {});
 
 				return {
 					...(parentReducer ? parentReducer(state, action) : state),
 					...children
-				};
+				}
 
 			}
 		}
