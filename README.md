@@ -1,3 +1,4 @@
+```
 import { ReduxReducerBuilder } from '../redux-reducer-builder'
 
 const userReducer = new ReduxReducerBuilder()
@@ -29,5 +30,4 @@ export const rootReducer = initialState => {
 
 };
 
-
-
+```
