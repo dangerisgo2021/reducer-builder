@@ -3,8 +3,8 @@ export default class ReduxReducerBuilder {
 
 	constructor() {
 		this.initialState = {};
-		this.actionTypeToReducer = {};
-		this.nameToChild = {};
+		this.typeToReducer = {};
+		this.keyToReducer = {};
 	}
 
 	setInitialState(initialState) {
@@ -12,13 +12,14 @@ export default class ReduxReducerBuilder {
 		return this;
 	}
 
-	addReducer(actionType, reducer) {
-		this.actionTypeToReducer[actionType] = reducer;
+  //should you be able to add multiple reducers for the same type?
+	addReducer(type, reducer) {
+		this.typeToReducer[type] = reducer;
 		return this
 	}
 
-	combine(name, child) {
-		this.nameToChild[name] = child;
+	combine(key, reducer) {
+		this.keyToReducer[key] = reducer;
 		return this
 	}
 
@@ -26,11 +27,10 @@ export default class ReduxReducerBuilder {
 
 		const self = this;
 
-
 		if(isEmpty(self.nameToChild)) {
 
 			return (state = self.initialState, action) => {
-				const reducer = self.actionTypeToReducer[action.type];
+				const reducer = self.typeToReducer[action.type];
 				return reducer ? reducer(state, action) : state;
 			}
 
@@ -38,21 +38,27 @@ export default class ReduxReducerBuilder {
 
 			return (state = self.initialState, action) => {
 
-				const parentReducer = self.actionTypeToReducer[action.type];
+        const rootReducer = self.typeToReducer[action.type];
 
-				const applyChildren = (nextState, name) => {
-					const reducer = self.nameToChild[name];
-					nextState[name] = reducer(state[name], action);
-					return nextState;
-				};
+        const nextRootState = rootReducer ? rootReducer(state, action) : state;
 
-				const children = Object.keys(self.nameToChild)
-					.reduce(applyChildren, {});
+        let hasChanged = state === nextRootState;
 
-				return {
-					...(parentReducer ? parentReducer(state, action) : state),
-					...children
-				}
+				const nextCombinedReducersState = Object.keys(self.keyToReducer)
+					.reduce((nextState, key) => {
+
+            const reducer = self.keyToReducer[key];
+            const stateForKey = state[key];
+            const nextStateForKey = reducer ? reducer(previousStateForKey, action) : stateForKey;
+
+            nextState[key] = nextStateForKey;
+            hasChanged = hasChanged || nextStateForKey !== stateForKey;
+
+            return nextState;
+
+          }, {});
+
+        return hasChanged ? {...nextRootState,...nextCombinedReducersState} : state;
 
 			}
 		}
