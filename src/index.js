@@ -38,29 +38,27 @@ export default class ReduxReducerBuilder {
 
       return (state = _this.initialState, action) => {
 
-          const rootReducer = _this.typeToReducer[action.type];
+        const rootReducer = _this.typeToReducer[action.type];
 
-          const nextRootState = rootReducer ? rootReducer(state, action) : state;
+        const nextRootState = rootReducer ? rootReducer(state, action) : state;
 
-          let hasChanged = state === nextRootState;
+        let hasChanged = state === nextRootState;
 
-          const nextCombinedReducersState = Object.keys(_this.keyToReducer)
-           .reduce((nextState, key) => {
+        const nextCombinedReducersState = Object.keys(_this.keyToReducer)
+         .reduce((nextState, key) => {
+            const reducer = _this.keyToReducer[key];
+            const stateForKey = state[key];
+            const nextStateForKey = reducer ? reducer(stateForKey, action) : stateForKey;
 
-                  const reducer = _this.keyToReducer[key];
-                  const stateForKey = state[key];
-                  const nextStateForKey = reducer ? reducer(stateForKey, action) : stateForKey;
+            nextState[key] = nextStateForKey;
+            hasChanged = hasChanged || nextStateForKey !== stateForKey;
 
-                  nextState[key] = nextStateForKey;
-                  hasChanged = hasChanged || nextStateForKey !== stateForKey;
+            return nextState;
+          }, {});
 
-                  return nextState;
+        return hasChanged ? { ...nextRootState, ...nextCombinedReducersState } : state;
 
-                }, {});
-
-          return hasChanged ? { ...nextRootState, ...nextCombinedReducersState } : state;
-
-        };
+      };
     }
 
   }
