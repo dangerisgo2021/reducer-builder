@@ -49,7 +49,7 @@ export default class ReduxReducerBuilder {
 
             const reducer = self.keyToReducer[key];
             const stateForKey = state[key];
-            const nextStateForKey = reducer ? reducer(previousStateForKey, action) : stateForKey;
+            const nextStateForKey = reducer ? reducer(stateForKey, action) : stateForKey;
 
             nextState[key] = nextStateForKey;
             hasChanged = hasChanged || nextStateForKey !== stateForKey;
