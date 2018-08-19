@@ -1,6 +1,6 @@
 {
   "name": "reducer-builder",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Fluent Redux Reducer Builder. Build to be an alternative for the giant switch case reducer files.",
   "main": "lib/index.js",
   "scripts": {
